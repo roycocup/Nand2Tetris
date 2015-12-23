@@ -1,0 +1,137 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Mux4Way16.hdl
+
+/**
+ * 4-way 16-bit multiplexor:
+ * out = a if sel == 00
+ *       b if sel == 01
+ *       c if sel == 10
+ *       d if sel == 11
+ */
+
+CHIP Mux4Way16 {
+    IN a[16], b[16], c[16], d[16], sel[2];
+    OUT out[16];
+
+    PARTS:
+   Not(in=sel[0], out=nota); 
+   Not(in=sel[1], out=notb); 
+   And(a=nota, b=notb, out=and00);
+   And(a=sel[0], b=notb, out=and01);
+   And(a=nota, b=sel[1], out=and10);
+   And(a=sel[0], b=sel[1], out=and11);
+
+   And(a=a[0], b=and00, out=busa00);
+   And(a=a[1], b=and00, out=busa01);
+   And(a=a[2], b=and00, out=busa02);
+   And(a=a[3], b=and00, out=busa03);
+   And(a=a[4], b=and00, out=busa04);
+   And(a=a[5], b=and00, out=busa05);
+   And(a=a[6], b=and00, out=busa06);
+   And(a=a[7], b=and00, out=busa07);
+   And(a=a[8], b=and00, out=busa08);
+   And(a=a[9], b=and00, out=busa09);
+   And(a=a[10], b=and00, out=busa10);
+   And(a=a[11], b=and00, out=busa11);
+   And(a=a[12], b=and00, out=busa12);
+   And(a=a[13], b=and00, out=busa13);
+   And(a=a[14], b=and00, out=busa14);
+   And(a=a[15], b=and00, out=busa15);
+
+
+   And(a=b[0], b=and01, out=busb00);
+   And(a=b[1], b=and01, out=busb01);
+   And(a=b[2], b=and01, out=busb02);
+   And(a=b[3], b=and01, out=busb03);
+   And(a=b[4], b=and01, out=busb04);
+   And(a=b[5], b=and01, out=busb05);
+   And(a=b[6], b=and01, out=busb06);
+   And(a=b[7], b=and01, out=busb07);
+   And(a=b[8], b=and01, out=busb08);
+   And(a=b[9], b=and01, out=busb09);
+   And(a=b[10], b=and01, out=busb10);
+   And(a=b[11], b=and01, out=busb11);
+   And(a=b[12], b=and01, out=busb12);
+   And(a=b[13], b=and01, out=busb13);
+   And(a=b[14], b=and01, out=busb14);
+   And(a=b[15], b=and01, out=busb15);
+
+
+   And(a=c[0], b=and10, out=busc00);
+   And(a=c[1], b=and10, out=busc01);
+   And(a=c[2], b=and10, out=busc02);
+   And(a=c[3], b=and10, out=busc03);
+   And(a=c[4], b=and10, out=busc04);
+   And(a=c[5], b=and10, out=busc05);
+   And(a=c[6], b=and10, out=busc06);
+   And(a=c[7], b=and10, out=busc07);
+   And(a=c[8], b=and10, out=busc08);
+   And(a=c[9], b=and10, out=busc09);
+   And(a=c[10], b=and10, out=busc10);
+   And(a=c[11], b=and10, out=busc11);
+   And(a=c[12], b=and10, out=busc12);
+   And(a=c[13], b=and10, out=busc13);
+   And(a=c[14], b=and10, out=busc14);
+   And(a=c[15], b=and10, out=busc15);
+
+
+   And(a=d[0], b=and11, out=busd00);
+   And(a=d[1], b=and11, out=busd01);
+   And(a=d[2], b=and11, out=busd02);
+   And(a=d[3], b=and11, out=busd03);
+   And(a=d[4], b=and11, out=busd04);
+   And(a=d[5], b=and11, out=busd05);
+   And(a=d[6], b=and11, out=busd06);
+   And(a=d[7], b=and11, out=busd07);
+   And(a=d[8], b=and11, out=busd08);
+   And(a=d[9], b=and11, out=busd09);
+   And(a=d[10], b=and11, out=busd10);
+   And(a=d[11], b=and11, out=busd11);
+   And(a=d[12], b=and11, out=busd12);
+   And(a=d[13], b=and11, out=busd13);
+   And(a=d[14], b=and11, out=busd14);
+   And(a=d[15], b=and11, out=busd15);
+
+
+   Or8Way(in[0]=busa00, in[1]=busb00, in[2]=busc00, in[3]=busd00, in[4..7]=false, out=out[0]);
+   Or8Way(in[0]=busa01, in[1]=busb01, in[2]=busc01, in[3]=busd01, in[4..7]=false, out=out[1]);
+   Or8Way(in[0]=busa02, in[1]=busb02, in[2]=busc02, in[3]=busd02, in[4..7]=false, out=out[2]);
+   Or8Way(in[0]=busa03, in[1]=busb03, in[2]=busc03, in[3]=busd03, in[4..7]=false, out=out[3]);
+   Or8Way(in[0]=busa04, in[1]=busb04, in[2]=busc04, in[3]=busd04, in[4..7]=false, out=out[4]);
+   Or8Way(in[0]=busa05, in[1]=busb05, in[2]=busc05, in[3]=busd05, in[4..7]=false, out=out[5]);
+   Or8Way(in[0]=busa06, in[1]=busb06, in[2]=busc06, in[3]=busd06, in[4..7]=false, out=out[6]);
+   Or8Way(in[0]=busa07, in[1]=busb07, in[2]=busc07, in[3]=busd07, in[4..7]=false, out=out[7]);
+   Or8Way(in[0]=busa08, in[1]=busb08, in[2]=busc08, in[3]=busd08, in[4..7]=false, out=out[8]);
+   Or8Way(in[0]=busa09, in[1]=busb09, in[2]=busc09, in[3]=busd09, in[4..7]=false, out=out[9]);
+   Or8Way(in[0]=busa10, in[1]=busb10, in[2]=busc10, in[3]=busd10, in[4..7]=false, out=out[10]);
+   Or8Way(in[0]=busa11, in[1]=busb11, in[2]=busc11, in[3]=busd11, in[4..7]=false, out=out[11]);
+   Or8Way(in[0]=busa12, in[1]=busb12, in[2]=busc12, in[3]=busd12, in[4..7]=false, out=out[12]);
+   Or8Way(in[0]=busa13, in[1]=busb13, in[2]=busc13, in[3]=busd13, in[4..7]=false, out=out[13]);
+   Or8Way(in[0]=busa14, in[1]=busb14, in[2]=busc14, in[3]=busd14, in[4..7]=false, out=out[14]);
+   Or8Way(in[0]=busa15, in[1]=busb15, in[2]=busc15, in[3]=busd15, in[4..7]=false, out=out[15]);
+
+	/*
+	//a
+	Nand(a=sel[0], b=sel[1], out=sela);
+	Mux16(a=a[0..15], b=b[0..15], sel=sela, out=out1);
+	//b
+	Not(in=sel[0], out=notb0);
+	And(a=notb0, b=sel[1], out=selb);
+	Mux16(a=a[0..15], b=b[0..15], sel=selb, out=out2);
+	//c
+	Not(in=sel[1], out=notc1);
+	And(a=notc1, b=sel[0], out=selc);
+	Mux16(a=a[0..15], b=b[0..15], sel=selc, out=out3);
+	//d
+	And(a=sel[0], b=sel[1], out=seld);
+	Mux16(a=a[0..15], b=b[0..15], sel=seld, out=out4);
+
+	
+	Or16(a=out1, b=out2, out=or1);
+	Or16(a=out3, b=out4, out=or2);
+	
+	Or16(a=or1, b=or2, out=out);
+	*/
+}
